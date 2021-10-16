@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-apache
+  name: taska3-phpload
 spec:
   selector:
     matchLabels:
-      run: php-apache
+      run: taska3-phpload
   replicas: 1
   template:
     metadata:
       labels:
-        run: php-apache
+        run: taska3-phpload
     spec:
       containers:
-      - name: php-apache
-        image: k8s.gcr.io/hpa-example
+      - name: taska3-phpload
+        image: taska3-phpload
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         resources:
@@ -26,24 +27,24 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: php-apache
+  name: taska3-phpload
   labels:
-    run: php-apache
+    run: taska3-phpload
 spec:
   ports:
   - port: 80
   selector:
-    run: php-apache
+    run: taska3-phpload
 ---
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: php-apache
+  name: taska3-phpload
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: php-apache
+    name: taska3-phpload
   minReplicas: 1
   maxReplicas: 10
   metrics:

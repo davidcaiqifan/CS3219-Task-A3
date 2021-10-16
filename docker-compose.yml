@@ -7,5 +7,11 @@ services:
     image: taska3-frontend
     ports:
       - "3000:3000"
+  taska3-phpload:
+    build:  
+      context: ./phpload
+    image: taska3-phpload
+    ports:
+      - "3000:3000"
     
     
